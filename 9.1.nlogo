@@ -4,10 +4,19 @@
 
 globals
 [
-Demand
-Supply
-pt
-pte
+Demand1
+Supply1
+pte1
+Demand2
+Supply2
+pte2
+Demand3
+Supply3
+pte3
+Demand4
+Supply4
+pte4
+ptOld
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,10 +27,16 @@ to setup
   clear-all
   reset-ticks
 
-  Set pt (c - a) * (b - d)
-  Set pte (c - a) * (b - d)
-  Set Supply c + d * pt
-  Set Demand a - b * pte
+  ;;Set pt (c - a) * (b - d)
+  ;;Set pt1 0
+  Set pt2 pt1
+  Set pt3 pt1
+  Set pt4 pt1
+  Set pn 1
+  Set ptOld pt1
+  ;;Set pte1 (c - a) * (b - d)
+  ;;Set Demand1 a - b * pt1
+  ;;Set Supply1 c + d * pte1
   ;;Set Supply Supply - Demand
 
 
@@ -33,17 +48,44 @@ end
 
 to go
 
+  ;;4a)
+
 ;;Set pt (pt - pte) * (d / b) + pte
-Set Supply c + d * pt
-Set Demand a - b * pte
+  Set Demand1 a - b * pt1
+  Set Supply1 c + d * pte1
+  Set pte1 (Demand1 - c) / d
+  Set pt1 pte1
 
-  if Supply > Demand
-  [Set pte pte - 1]
+  ;;if Supply > Demand
+  ;;[Set pte pte - 1]
 
-  if Supply < Demand
-  [Set pte pte + 1]
+  ;;if Supply < Demand
+  ;;[Set pte pte + 1]
 
 ;;create-turtles pte
+
+  ;;4b)
+
+  Set Demand2 a - b * pt2
+  Set Supply2 c + d * pte2
+  Set pte2 ((Demand2 - c) / d) + x * (pn - ((Demand2 - c) / d))
+  Set pt2 pte2
+
+  ;;4c)
+
+  Set Demand3 a - b * pt3
+  Set Supply3 c + d * pte3
+  Set pte3 pte3 + y * (((Demand3 - c) / d) - pte3)
+  Set pt3 pte3
+
+  ;;4d)
+
+
+  Set Demand4 a - b * pt4
+  Set Supply4 c + d * pte4
+  Set pte4 ((Demand4 - c) / d) + z * (((Demand4 - c) / d) - ptOld)
+  Set ptOld pt4
+  Set pt4 pte4
 
 tick
 end
@@ -76,10 +118,10 @@ ticks
 30.0
 
 BUTTON
-43
-66
-107
-99
+23
+23
+87
+56
 Setup
 setup
 NIL
@@ -93,10 +135,10 @@ NIL
 1
 
 BUTTON
-134
-66
-197
-99
+109
+21
+172
+54
 Go
 go
 NIL
@@ -110,12 +152,12 @@ NIL
 1
 
 PLOT
-279
-51
-661
-447
-Plot
-Quantity
+385
+23
+739
+256
+Expected price over time
+Time
 Price
 0.0
 10.0
@@ -125,7 +167,10 @@ true
 true
 "" ""
 PENS
-"Turtles count" 1.0 0 -16777216 true "" "plot pte"
+"expected price 1" 1.0 0 -13840069 true "" "plot pte1"
+"expected price 2" 1.0 0 -14070903 true "" "plot pte2"
+"expected price 3" 1.0 0 -2674135 true "" "plot pte3"
+"expected price 4" 1.0 0 -987046 true "" "plot pte4"
 
 SLIDER
 49
@@ -186,6 +231,138 @@ d
 1
 NIL
 HORIZONTAL
+
+INPUTBOX
+20
+64
+70
+124
+pt1
+0.9878048751695147
+1
+0
+Number
+
+INPUTBOX
+152
+65
+202
+125
+pn
+1.0
+1
+0
+Number
+
+SLIDER
+47
+339
+219
+372
+x
+x
+0
+1
+0.08
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+47
+384
+219
+417
+y
+y
+0
+1
+0.4
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+48
+434
+220
+467
+z
+z
+0
+1
+0.2
+0.01
+1
+NIL
+HORIZONTAL
+
+INPUTBOX
+88
+65
+138
+125
+pt2
+1.08786855867992
+1
+0
+Number
+
+INPUTBOX
+216
+65
+266
+125
+pt3
+1.1111111111060548
+1
+0
+Number
+
+INPUTBOX
+286
+65
+336
+125
+pt4
+1.1081407394074951
+1
+0
+Number
+
+MONITOR
+252
+138
+309
+183
+ptOld
+ptOld
+17
+1
+11
+
+PLOT
+385
+272
+740
+490
+Market in action
+Quantity
+Price
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"price 1" 1.0 0 -13840069 true "" "plotxy Supply1\npt1\n"
+"price 2" 1.0 0 -14070903 true "" "plotxy Supply2\npt2"
+"price 3" 1.0 0 -2674135 true "" "plotxy Supply3\npt3\n"
+"price 4" 1.0 0 -1184463 true "" "plotxy Supply4\npt4\n"
 
 @#$#@#$#@
 ## WHAT IS IT?
