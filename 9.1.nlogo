@@ -27,17 +27,11 @@ to setup
   clear-all
   reset-ticks
 
-  ;;Set pt (c - a) * (b - d)
-  ;;Set pt1 0
   Set pt2 pt1
   Set pt3 pt1
   Set pt4 pt1
   Set pn 1
   Set ptOld pt1
-  ;;Set pte1 (c - a) * (b - d)
-  ;;Set Demand1 a - b * pt1
-  ;;Set Supply1 c + d * pte1
-  ;;Set Supply Supply - Demand
 
 
 end
@@ -50,42 +44,32 @@ to go
 
   ;;4a)
 
-;;Set pt (pt - pte) * (d / b) + pte
-  Set Demand1 a - b * pt1
+  Set pte1 pt1
   Set Supply1 c + d * pte1
-  Set pte1 (Demand1 - c) / d
-  Set pt1 pte1
-
-  ;;if Supply > Demand
-  ;;[Set pte pte - 1]
-
-  ;;if Supply < Demand
-  ;;[Set pte pte + 1]
-
-;;create-turtles pte
+  Set Demand1 Supply1
+  Set pt1 (Supply1 - a) / b
 
   ;;4b)
 
-  Set Demand2 a - b * pt2
+  Set pte2 pt2 + x * (pn - pt2)
   Set Supply2 c + d * pte2
-  Set pte2 ((Demand2 - c) / d) + x * (pn - ((Demand2 - c) / d))
-  Set pt2 pte2
+  Set Demand2 Supply2
+  Set pt2 (Supply2 - a) / b
 
   ;;4c)
 
-  Set Demand3 a - b * pt3
+  Set pte3 pte3 + y * (pt3 - pte3)
   Set Supply3 c + d * pte3
-  Set pte3 pte3 + y * (((Demand3 - c) / d) - pte3)
-  Set pt3 pte3
+  Set Demand3 Supply3
+  Set pt3 (Supply3 - a) / b
 
   ;;4d)
 
-
-  Set Demand4 a - b * pt4
+  Set pte4 pt3 + z * (pt3 - ptOld)
   Set Supply4 c + d * pte4
-  Set pte4 ((Demand4 - c) / d) + z * (((Demand4 - c) / d) - ptOld)
+  Set Demand4 Supply4
   Set ptOld pt4
-  Set pt4 pte4
+  Set pt4 (Supply4 - a) / b
 
 tick
 end
@@ -156,7 +140,7 @@ PLOT
 23
 739
 256
-Expected price over time
+Price over time
 Time
 Price
 0.0
@@ -167,10 +151,10 @@ true
 true
 "" ""
 PENS
-"expected price 1" 1.0 0 -13840069 true "" "plot pte1"
-"expected price 2" 1.0 0 -14070903 true "" "plot pte2"
-"expected price 3" 1.0 0 -2674135 true "" "plot pte3"
-"expected price 4" 1.0 0 -987046 true "" "plot pte4"
+"price 1" 1.0 0 -13840069 true "" "plot pt1"
+"price 2" 1.0 0 -14070903 true "" "plot pt2"
+"price 3" 1.0 0 -2674135 true "" "plot pt3"
+"price 4" 1.0 0 -987046 true "" "plot pt4"
 
 SLIDER
 49
@@ -194,9 +178,9 @@ SLIDER
 213
 b
 b
-01
-100
-4.0
+-100
+-1
+-5.0
 1
 1
 NIL
@@ -226,7 +210,7 @@ d
 d
 1
 100
-5.0
+4.0
 1
 1
 NIL
@@ -238,7 +222,7 @@ INPUTBOX
 70
 124
 pt1
-0.9878048751695147
+5.0
 1
 0
 Number
@@ -305,7 +289,7 @@ INPUTBOX
 138
 125
 pt2
-1.08786855867992
+5.0
 1
 0
 Number
@@ -316,7 +300,7 @@ INPUTBOX
 266
 125
 pt3
-1.1111111111060548
+5.0
 1
 0
 Number
@@ -327,7 +311,7 @@ INPUTBOX
 336
 125
 pt4
-1.1081407394074951
+5.0
 1
 0
 Number
@@ -363,6 +347,27 @@ PENS
 "price 2" 1.0 0 -14070903 true "" "plotxy Supply2\npt2"
 "price 3" 1.0 0 -2674135 true "" "plotxy Supply3\npt3\n"
 "price 4" 1.0 0 -1184463 true "" "plotxy Supply4\npt4\n"
+
+PLOT
+758
+23
+1084
+256
+Defference between price and expected price over time
+Time
+Expectation diffference
+0.0
+5.0
+0.0
+5.0
+true
+true
+"" ""
+PENS
+"market 1" 1.0 0 -13840069 true "" "plot pte1 - pt1"
+"market 2" 1.0 0 -14070903 true "" "plot pte2 - pt2"
+"market 3" 1.0 0 -2674135 true "" "plot pte3 - pt3"
+"market 4" 1.0 0 -1184463 true "" "plot pte4 - pt4"
 
 @#$#@#$#@
 ## WHAT IS IT?
