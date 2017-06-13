@@ -125,6 +125,17 @@ to go
   Set Demand5 Supply5
   Set pt5 (Supply5 - a) / b
 
+  if pt5 < 0 [set pt5 0]
+  if pte51 < 0 [set pte51 0]
+  if pte52 < 0 [set pte52 0]
+  if pte53 < 0 [set pte53 0]
+  if pte54 < 0 [set pte54 0]
+  if pt5 > 2 [set pt5 2]
+  if pte51 > 2 [set pte51 2]
+  if pte52 > 2 [set pte52 2]
+  if pte53 > 2 [set pte53 2]
+  if pte54 > 2 [set pte54 2]
+
 
 tick
 end
@@ -236,7 +247,7 @@ b
 b
 -100
 -1
--7.0
+-11.0
 1
 1
 NIL
@@ -266,7 +277,7 @@ d
 d
 1
 100
-4.0
+10.0
 1
 1
 NIL
@@ -278,7 +289,7 @@ INPUTBOX
 70
 124
 pt1
-0.9090980673644873
+2.0
 1
 0
 Number
@@ -289,7 +300,7 @@ INPUTBOX
 202
 125
 pn
-0.9090909090909091
+0.47619047619047616
 1
 0
 Number
@@ -345,7 +356,7 @@ INPUTBOX
 138
 125
 pt2
-0.9090921517519038
+2.0
 1
 0
 Number
@@ -356,7 +367,7 @@ INPUTBOX
 266
 125
 pt3
-0.9090909089367035
+2.0
 1
 0
 Number
@@ -367,7 +378,7 @@ INPUTBOX
 336
 125
 pt4
-0.9133888570969846
+2.0
 1
 0
 Number
